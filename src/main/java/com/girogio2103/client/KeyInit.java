@@ -11,7 +11,7 @@ public class KeyInit {
     }
 
     public static void init(){
-        toggleChat = registerKey("mod.dicksp_chat.key.toggle", GLFW.GLFW_KEY_C, "key.categories.multiplayer");
+        toggleChat = registerKey("mod.custom_chat.key.toggle", GLFW.GLFW_KEY_C, "key.categories.multiplayer");
     }
 
     public static KeyMapping toggleChat;

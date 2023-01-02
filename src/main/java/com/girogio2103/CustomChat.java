@@ -25,7 +25,7 @@ import java.net.URI;
 
 
 
-@Mod("CustomChat")
+@Mod("custom_chat")
 public class CustomChat {
 
     HttpClient client = HttpClient.newHttpClient();
@@ -36,7 +36,7 @@ public class CustomChat {
     public CustomChat() {
 
         KeyInit.init();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CustomChatClientConfig.SPEC, "dickspchat-client.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CustomChatClientConfig.SPEC, "custom_chat-client.toml");
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -47,7 +47,7 @@ public class CustomChat {
         if (KeyInit.toggleChat.consumeClick()) {
             isCustomChatOpen = !isCustomChatOpen;
             assert Minecraft.getInstance().player != null;
-            String out = I18n.get(isCustomChatOpen ? "mod.dicksp_chat.popup.toggle.activate" : "mod.dicksp_chat.popup.toggle.deactivate");
+            String out = I18n.get(isCustomChatOpen ? "mod.custom_chat.popup.toggle.activate" : "mod.custom_chat.popup.toggle.deactivate");
             Minecraft.getInstance().player.displayClientMessage(new TextComponent(out), true);
             Minecraft.getInstance().player.playSound(net.minecraft.sounds.SoundEvents.UI_BUTTON_CLICK, 1.0F, 1.0F);
         }
