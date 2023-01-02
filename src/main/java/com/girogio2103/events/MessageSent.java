@@ -47,11 +47,8 @@ import java.net.http.HttpResponse;
                         .header("accept", "application/json")
                         .method("POST", body)
                         .build();
-                try {
-                    client.send(request, HttpResponse.BodyHandlers.ofString());
-                } catch (IOException | InterruptedException e) {
-                    System.out.println("IOException");
-                }
+
+                client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
                 event.setCanceled(true);
             }
 
