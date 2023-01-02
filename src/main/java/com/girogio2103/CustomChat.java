@@ -25,7 +25,7 @@ import java.net.URI;
 
 
 
-@Mod("dicksp_chat")
+@Mod("CustomChat")
 public class CustomChat {
 
     HttpClient client = HttpClient.newHttpClient();
