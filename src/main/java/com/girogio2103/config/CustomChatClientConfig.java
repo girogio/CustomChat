@@ -11,7 +11,7 @@ public class CustomChatClientConfig {
     public static final ForgeConfigSpec.ConfigValue<String> API_URL;
 
     static{
-        BUILDER.push("Config for Dicksp Chat");
+        BUILDER.push("general");
 
         API_URL = BUILDER.comment("The URL of the server to send the messages to")
                 .define("API URL", "https://en3hys2kkjxro.x.pipedream.net");
