@@ -7,6 +7,8 @@ import org.lwjgl.glfw.GLFW;
 
 public class KeyInit {
 
+    public static KeyMapping toggleChat;
+
     private KeyInit() {
     }
 
@@ -14,13 +16,9 @@ public class KeyInit {
         toggleChat = registerKey("mod.custom_chat.key.toggle", GLFW.GLFW_KEY_C, "key.categories.multiplayer");
     }
 
-    public static KeyMapping toggleChat;
-
     private static KeyMapping registerKey(String name, int keyCode, String category) {
         final var key = new KeyMapping(name, InputConstants.Type.KEYSYM, keyCode, category);
         ClientRegistry.registerKeyBinding(key);
         return key;
     }
-
-
 }

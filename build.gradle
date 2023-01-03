@@ -6,13 +6,18 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
+
 }
 plugins {
     id 'eclipse'
     id 'maven-publish'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
-apply plugin: 'net.minecraftforge.gradle'
 
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
 
 version = '1.0'
 group = 'com.girogio2103.CustomChat' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -46,6 +51,7 @@ minecraft {
         client {
             workingDirectory project.file('run')
 
+
             // Recommended logging data for a userdev environment
             // The markers can be added/remove as needed separated by commas.
             // "SCAN": For mods scan.
@@ -66,6 +72,9 @@ minecraft {
                     source sourceSets.main
                 }
             }
+
+            // Fix the classpath the right way and once and for all
+
         }
 
         server {
@@ -138,26 +147,29 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
-
-    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
-    // flatDir {
-    //     dir 'libs'
-    // }
+    maven {
+        url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
+    }
+    mavenCentral()
+//     If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
+     flatDir {
+         dir 'lib'
+     }
 }
-
 dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.18.2-40.1.93'
-
+    minecraftLibrary(group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.5')
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
 
+//    shade "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5"
     // Examples using mod jars from ./libs
-    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
+//     implementation fg.deobf("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
@@ -179,9 +191,22 @@ jar {
     }
 }
 
-// Example configuration to allow publishing using the maven-publish plugin
-// This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar')
+shadowJar {
+    // Only shadow fluent-hc
+    dependencies {
+        include(dependency('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'))
+    }
+
+    // Relocate fluent-hc to prevent conflicts with other mods that include it
+    relocate 'org.apache.http.client.fluent', 'choonster.testmod3.repack.org.apache.http.client.fluent'
+
+    classifier '' // Replace the default JAR
+}
+
+reobf {
+    shadowJar {} // Reobfuscate the shadowed JAR
+}
+
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 // publish.dependsOn('reobfJar')
 

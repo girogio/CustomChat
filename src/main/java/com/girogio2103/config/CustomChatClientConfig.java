@@ -2,19 +2,16 @@ package com.girogio2103.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-// import mod config annotation
-
 public class CustomChatClientConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;
-
-    public static final ForgeConfigSpec.ConfigValue<String> API_URL;
+    public static final ForgeConfigSpec.ConfigValue<String> MQTT_BROKER;
 
     static{
         BUILDER.push("general");
 
-        API_URL = BUILDER.comment("The URL of the server to send the messages to")
-                .define("API URL", "https://en3hys2kkjxro.x.pipedream.net");
+        MQTT_BROKER = BUILDER.comment("The URL of the MQTT broker to connect to")
+                .define("MQTT Broker", "ws://broker.hivemq.com:8000");
 
         BUILDER.pop();
 

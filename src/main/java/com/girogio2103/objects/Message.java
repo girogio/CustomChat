@@ -1,40 +1,27 @@
 package com.girogio2103.objects;
 
+import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.nio.charset.StandardCharsets;
+
 public class Message {
 
-    private String sender_username;
+    private final String sender_username;
 
-    private String sender_UUID;
+    private final String message;
 
-    private String message;
-
-    public Message(String sender_username, String sender_UUID, String message) {
+    public Message(String sender_username, String message) {
         this.sender_username = sender_username;
-        this.sender_UUID = sender_UUID;
         this.message = message;
     }
 
-    public String getSender_username() {
-        return sender_username;
-    }
 
-    public void setSender_username(String sender_username) {
-        this.sender_username = sender_username;
-    }
+    public void send(IMqttAsyncClient asyncPublisher, String topic) throws Exception {
+        MqttMessage msg = new MqttMessage((this.sender_username + ": " + this.message).getBytes(StandardCharsets.UTF_8));
+        msg.setQos(0);
+        msg.setRetained(false);
+        asyncPublisher.publish(topic, msg);
 
-    public String getSender_UUID() {
-        return sender_UUID;
-    }
-
-    public void setSender_UUID(String sender_UUID) {
-        this.sender_UUID = sender_UUID;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }
