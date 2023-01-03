@@ -10,20 +10,14 @@ public class MqttConnection {
 
     public static IMqttAsyncClient asyncPublisher;
 
-    private static String clientId;
-
     public MqttConnection() { }
 
     public static void init() throws MqttException {
-        asyncPublisher = new MqttAsyncClient(CustomChatClientConfig.MQTT_BROKER.get(), clientId);
+        asyncPublisher = new MqttAsyncClient(CustomChatClientConfig.MQTT_BROKER.get(), CustomChatClientConfig.MQTT_CLIENT_ID.get());
         MqttConnectOptions options = new MqttConnectOptions();
         options.setAutomaticReconnect(true);
         options.setCleanSession(true);
         options.setConnectionTimeout(10);
         asyncPublisher.connect(options).waitForCompletion();
-    }
-
-    public static void setClientId(String clientId) {
-        MqttConnection.clientId = clientId;
     }
 }

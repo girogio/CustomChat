@@ -29,7 +29,6 @@ import net.minecraftforge.fml.common.Mod;
                 return;
             } else {
                 event.setCanceled(true);
-                MqttConnection.setClientId(playerName);
                 message.send(MqttConnection.asyncPublisher, "chat/general");
             }
             event.setCanceled(true);
