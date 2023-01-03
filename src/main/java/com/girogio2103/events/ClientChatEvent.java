@@ -6,19 +6,16 @@ import com.girogio2103.objects.Message;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "custom_chat", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-    public class MessageSent {
+    public class ClientChatEvent {
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
-    public static void onClientChat(ClientChatEvent event) throws Exception {
-
+    public static void onClientChat(net.minecraftforge.client.event.ClientChatEvent event) throws Exception {
         if (CustomChat.isCustomChatOpen) {
-
             assert Minecraft.getInstance().player != null;
             String playerName = Minecraft.getInstance().player.getName().getString();
             String msg = event.getMessage();
@@ -29,7 +26,7 @@ import net.minecraftforge.fml.common.Mod;
                 return;
             } else {
                 event.setCanceled(true);
-                message.send(MqttConnection.asyncPublisher, "chat/general");
+                message.send(MqttConnection.asyncPublisher);
             }
             event.setCanceled(true);
         }

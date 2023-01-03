@@ -1,5 +1,6 @@
 package com.girogio2103.objects;
 
+import com.girogio2103.config.CustomChatClientConfig;
 import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -17,11 +18,13 @@ public class Message {
     }
 
 
-    public void send(IMqttAsyncClient asyncPublisher, String topic) throws Exception {
-        MqttMessage msg = new MqttMessage((this.sender_username + ": " + this.message).getBytes(StandardCharsets.UTF_8));
-        msg.setQos(0);
-        msg.setRetained(false);
-        asyncPublisher.publish(topic, msg);
-
+    public void send(IMqttAsyncClient asyncPublisher) throws Exception {
+        if(asyncPublisher.isConnected()) {
+            MqttMessage mqttMessage = new MqttMessage();
+            mqttMessage.setPayload((sender_username + ": " + message).getBytes(StandardCharsets.UTF_8));
+            mqttMessage.setQos(2);
+            mqttMessage.setRetained(false);
+            asyncPublisher.publish(CustomChatClientConfig.MQTT_TOPIC.get(), mqttMessage);
+        }
     }
 }

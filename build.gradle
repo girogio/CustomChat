@@ -197,9 +197,6 @@ shadowJar {
         include(dependency('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'))
     }
 
-    // Relocate fluent-hc to prevent conflicts with other mods that include it
-    relocate 'org.apache.http.client.fluent', 'choonster.testmod3.repack.org.apache.http.client.fluent'
-
     classifier '' // Replace the default JAR
 }
 
