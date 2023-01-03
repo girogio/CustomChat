@@ -1,3 +1,21 @@
+# Custom Chat Mod!
+
+A very neat way of communicating in game, without using Mojang's services!
+
+## Features
+
+Press C to connect to your chosen MQTT server and subscribe to the configured topic! You can modify both of these in `.minecraft/config/custom_chat-client.toml`. 
+
+## Keybinds
+ 
+`C`: Toggle toggle subscription
+
+## Notes
+ - Commands beginning with `/` are ignored.
+ - First activation takes a bit longer as initial connection is being estabillished.
+
+
+
 
 Source installation information for modders
 -------------------------------------------
