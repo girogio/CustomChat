@@ -3,6 +3,8 @@ package com.girogio2103.client;
 import com.girogio2103.config.CustomChatClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
@@ -72,6 +74,13 @@ public class MqttConnection {
                     @Override
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
                         assert Minecraft.getInstance().player != null;
+
+                        if (CustomChatClientConfig.PINGS.get()) {
+                            System.out.println(Minecraft.getInstance().player.getName().getString());
+                            if (message.toString().contains("@" + Minecraft.getInstance().player.getName().getString())) {
+                                Minecraft.getInstance().player.playNotifySound(SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.AMBIENT, 0.1F, 1.0F);
+                            }
+                        }
                         Minecraft.getInstance().player.sendMessage(new TextComponent(message.toString()), Minecraft.getInstance().player.getUUID());
                     }
 
