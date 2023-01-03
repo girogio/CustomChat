@@ -15,13 +15,13 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 @Mod("custom_chat")
 public class CustomChat {
 
-    public CustomChat() throws MqttException {
+    public static boolean isCustomChatOpen = false;
+
+    public CustomChat(){
         KeyInit.init();
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CustomChatClientConfig.SPEC, "custom_chat-client.toml");
         MinecraftForge.EVENT_BUS.register(this);
     }
-
-    public static boolean isCustomChatOpen = false;
 
 
     @SubscribeEvent
