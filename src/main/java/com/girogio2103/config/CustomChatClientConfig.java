@@ -8,6 +8,8 @@ public class CustomChatClientConfig {
     public static final ForgeConfigSpec.ConfigValue<String> MQTT_BROKER;
     public static final ForgeConfigSpec.ConfigValue<String> MQTT_TOPIC;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> PINGS;
+
     static{
         BUILDER.push("general");
 
@@ -18,6 +20,12 @@ public class CustomChatClientConfig {
                 .define("MQTT Topic", "chat/general");
 
         BUILDER.pop();
+
+        BUILDER.push("chat")
+                .comment("Chat settings");
+
+        PINGS = BUILDER.comment("Enable pings (if message contains @Player123, Player123 will get a sound notification)")
+                .define("Pings", true);
 
         SPEC = BUILDER.build();
     }
