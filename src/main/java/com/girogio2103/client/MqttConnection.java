@@ -6,7 +6,6 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import org.eclipse.paho.client.mqttv3.*;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttConnection {
 
@@ -46,8 +45,9 @@ public class MqttConnection {
             }
         });
     }
+
     public static void subscribe(String topic) throws MqttException {
-        if(asyncPublisher != null) {
+        if (asyncPublisher != null) {
             if (asyncPublisher.isConnected()) {
                 asyncPublisher.subscribe(topic, 2, null, new IMqttActionListener() {
                     @Override
@@ -64,6 +64,7 @@ public class MqttConnection {
                         }
                     }
                 }).waitForCompletion();
+
                 asyncPublisher.setCallback(new MqttCallback() {
                     @Override
                     public void connectionLost(Throwable cause) {
@@ -72,7 +73,8 @@ public class MqttConnection {
                     }
 
                     @Override
-                    public void messageArrived(String topic, MqttMessage message) throws Exception {
+                    public void messageArrived(String topic, MqttMessage message) {
+
                         assert Minecraft.getInstance().player != null;
 
                         if (CustomChatClientConfig.PINGS.get()) {
@@ -86,24 +88,22 @@ public class MqttConnection {
 
                     @Override
                     public void deliveryComplete(IMqttDeliveryToken token) {
-                        assert Minecraft.getInstance().player != null;
-                        Minecraft.getInstance().player.playSound(net.minecraft.sounds.SoundEvents.UI_BUTTON_CLICK, 0.1F, 0.1F);
+
                     }
                 });
             }
+        } else {
+            init();
         }
-            else {
-                init();
-            }
 
     }
 
     public static void unsubscribe(String topic) throws MqttException {
-        if(asyncPublisher.isConnected()) {
+        if (asyncPublisher.isConnected()) {
             asyncPublisher.unsubscribe(topic, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    if(Minecraft.getInstance().player != null) {
+                    if (Minecraft.getInstance().player != null) {
                         Minecraft.getInstance().player.displayClientMessage(new TextComponent("Unsubscribed from " + topic), true);
                     }
                 }
@@ -115,7 +115,7 @@ public class MqttConnection {
                 }
             }).waitForCompletion();
 
-        }else {
+        } else {
             assert Minecraft.getInstance().player != null;
             Minecraft.getInstance().player.displayClientMessage(new TextComponent("Failed to unsubscribe from " + topic), true);
         }
