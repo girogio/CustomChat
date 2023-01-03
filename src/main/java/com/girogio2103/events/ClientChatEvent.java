@@ -22,13 +22,10 @@ import net.minecraftforge.fml.common.Mod;
 
             Message message = new Message(playerName, msg);
 
-            if (msg.startsWith("/")) {
-                return;
-            } else {
+            if (!msg.startsWith("/")) {
                 event.setCanceled(true);
                 message.send(MqttConnection.asyncPublisher);
             }
-            event.setCanceled(true);
         }
     }
 }
