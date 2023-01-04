@@ -1,4 +1,4 @@
-# Custom Chat Mod!
+# Custom Chat
 
 A very neat way of communicating in game, without using Mojang's services!
 
