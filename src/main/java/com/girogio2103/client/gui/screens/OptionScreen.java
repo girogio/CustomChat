@@ -3,6 +3,7 @@ package com.girogio2103.client.gui.screens;
 import com.girogio2103.client.config.CustomChatClientConfig;
 import com.girogio2103.common.MqttConnection;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
@@ -20,6 +21,10 @@ public class OptionScreen extends Screen {
 
     public OptionScreen(Component title) {
         super(title);
+    }
+
+    public static void show(){
+        Minecraft.getInstance().setScreen(new OptionScreen(new TextComponent("Options")));
     }
 
     @Override

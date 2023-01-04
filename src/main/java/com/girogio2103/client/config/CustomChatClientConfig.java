@@ -10,6 +10,8 @@ public class CustomChatClientConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> PINGS;
 
+    public static final ForgeConfigSpec.ConfigValue<String> PLAYER_PREFIX;
+
     public static final ForgeConfigSpec.ConfigValue<Boolean> ADD_MESSAGE_TO_HISTORY;
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> NOTIFICATIONS;
@@ -34,6 +36,9 @@ public class CustomChatClientConfig {
 
         ADD_MESSAGE_TO_HISTORY = BUILDER.comment("Add message to history (pressing up arrow will show previous messages)")
                 .define("Add message to history", true);
+
+        PLAYER_PREFIX = BUILDER.comment("Username prefix (only shows in your client)")
+                .define("Player prefix", "");
 
         BUILDER.pop();
 

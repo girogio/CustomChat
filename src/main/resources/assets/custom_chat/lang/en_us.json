@@ -2,5 +2,6 @@
   "mod.custom_chat.key.toggle": "Toggle Chat",
   "mod.custom_chat.popup.toggle.activate": "Chat enabled",
   "mod.custom_chat.popup.toggle.deactivate": "Chat disabled",
-  "mod.custom_chat.key.toggle_indicator": "Toggle Chat Indicator"
+  "mod.custom_chat.key.toggle_indicator": "Toggle Chat Indicator",
+  "mod.custom_chat.key.toggle_menu": "Toggle Chat Menu"
 }

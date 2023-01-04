@@ -22,7 +22,7 @@ public class ConnStatusIndicator {
             if (!MqttConnection.isConnected()) {
                 RenderSystem.setShaderTexture(0, disconnectedIndicator);
             } else {
-                RenderSystem.setShaderTexture(0, MqttConnection.isSubscribed ? subscribedIndicator : unsubscribedIndicator);
+                RenderSystem.setShaderTexture(0, MqttConnection.isSubscribed() ? subscribedIndicator : unsubscribedIndicator);
             }
             GuiComponent.blit(matrixStack, x, y, 0, 0, 20, 18, 20, 18);
             matrixStack.popPose();

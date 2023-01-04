@@ -2,6 +2,7 @@ package com.girogio2103;
 
 import com.girogio2103.client.KeyInit;
 import com.girogio2103.client.config.CustomChatClientConfig;
+import com.girogio2103.client.gui.screens.OptionScreen;
 import com.girogio2103.common.MqttConnection;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -17,32 +18,24 @@ public class CustomChat {
 
     public static String MOD_ID = "custom_chat";
 
-    public static boolean isCustomChatOpen = false;
-
     public CustomChat() {
         KeyInit.init();
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CustomChatClientConfig.SPEC, "custom_chat-client.toml");
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-
     @SubscribeEvent
     public void clientTick(TickEvent.ClientTickEvent event) throws MqttException {
         if (KeyInit.toggleChat.consumeClick()) {
-
-            String topic = CustomChatClientConfig.MQTT_TOPIC.get();
-
-            if (isCustomChatOpen) {
-                MqttConnection.unsubscribe(topic);
-            } else {
-                MqttConnection.subscribe(topic);
-            }
-
-            isCustomChatOpen = !isCustomChatOpen;
+            MqttConnection.toggleSubscription(CustomChatClientConfig.MQTT_TOPIC.get());
         }
 
         if(KeyInit.toggleIndicator.consumeClick()){
             CustomChatClientConfig.SHOW_HUD_INDICATOR.set(!CustomChatClientConfig.SHOW_HUD_INDICATOR.get());
+        }
+
+        if(KeyInit.toggleMenu.consumeClick()){
+            OptionScreen.show();
         }
 
     }
