@@ -1,5 +1,34 @@
 # Changelog
 
+## v1.3 
+
+### Added 
+
+- Added menu for disconnecting and changing broker/topic in game
+- Added configurable client side prefix to all messages received from mod (default = "")
+
+### Fixed
+
+- Fixed translations
+
+### Removed
+
+- uni productiveness
+
+## v1.2
+
+### Added 
+
+- Added configuration for chat history 
+
+### Fixed
+
+- Fixed chats not going into history (configurable)
+
+### Removed
+
+- sleep
+
 ## v1.1
 
 ### Added 
