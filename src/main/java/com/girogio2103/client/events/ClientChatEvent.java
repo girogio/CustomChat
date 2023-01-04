@@ -1,6 +1,7 @@
 package com.girogio2103.client.events;
 
 import com.girogio2103.CustomChat;
+import com.girogio2103.client.config.CustomChatClientConfig;
 import com.girogio2103.common.Message;
 import com.girogio2103.common.MqttConnection;
 import net.minecraft.client.Minecraft;
@@ -23,7 +24,8 @@ public class ClientChatEvent {
             Message message = new Message(playerName, msg);
 
             if (!msg.startsWith("/")) {
-                Minecraft.getInstance().gui.getChat().addRecentChat(event.getMessage());
+                if(CustomChatClientConfig.ADD_MESSAGE_TO_HISTORY.get())
+                    Minecraft.getInstance().gui.getChat().addRecentChat(event.getMessage());
                 message.send(MqttConnection.asyncPublisher);
                 event.setCanceled(true);
             }
