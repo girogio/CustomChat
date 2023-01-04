@@ -33,6 +33,8 @@ The configuration file is located at `.minecraft/config/custom_chat-client.toml`
       - set to true if you want to hear a sound when someone @mentions you.
    - `Add message to history = true`
       - self explanatory.
+   - `Player prefix = ""`
+      - show a client side prefix to every message handled by this mod.
 - HUD
    - `Show Connectivity Indicator = true`
       - set to true if you want to see a small indicator in the top left corner of your screen.
