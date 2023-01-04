@@ -13,8 +13,8 @@ A very neat way of communicating in game, without using Mojang's services!
 
 ## Keybinds
  
-`C`: Toggle chat bypass
-`V`: Toggle connection status indicator
+- `C`: Toggle chat bypass
+- `V`: Toggle connection status indicator
 
 ## Configuration
 
