@@ -40,5 +40,10 @@ public class CustomChat {
 
             isCustomChatOpen = !isCustomChatOpen;
         }
+
+        if(KeyInit.toggleIndicator.consumeClick()){
+            CustomChatClientConfig.SHOW_HUD_INDICATOR.set(!CustomChatClientConfig.SHOW_HUD_INDICATOR.get());
+        }
+
     }
 }

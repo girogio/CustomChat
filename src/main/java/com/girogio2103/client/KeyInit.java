@@ -8,14 +8,14 @@ import org.lwjgl.glfw.GLFW;
 public class KeyInit {
 
     public static KeyMapping toggleChat;
-    public static KeyMapping toggleConn;
+    public static KeyMapping toggleIndicator;
 
     private KeyInit() {
     }
 
     public static void init(){
         toggleChat = registerKey("mod.custom_chat.key.toggle", GLFW.GLFW_KEY_C, "key.categories.multiplayer");
-        toggleConn = registerKey("mod.custom_chat.key.toggle_conn", GLFW.GLFW_KEY_V, "key.categories.multiplayer");
+        toggleIndicator = registerKey("mod.custom_chat.key.toggle_indicator", GLFW.GLFW_KEY_V, "key.categories.multiplayer");
     }
 
     private static KeyMapping registerKey(String name, int keyCode, String category) {

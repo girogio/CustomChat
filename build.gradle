@@ -175,7 +175,7 @@ jar {
         attributes([
                 "Specification-Title"     : "Custom Chat",
                 "Specification-Vendor"    : "Girogio2103",
-                "Specification-Version"   : "1.1", // We are version 1 of ourselves
+                "Specification-Version"   : "1.2", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "Girogio2103",
