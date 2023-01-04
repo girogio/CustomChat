@@ -23,8 +23,9 @@ public class ClientChatEvent {
             Message message = new Message(playerName, msg);
 
             if (!msg.startsWith("/")) {
-                event.setCanceled(true);
+                Minecraft.getInstance().gui.getChat().addRecentChat(event.getMessage());
                 message.send(MqttConnection.asyncPublisher);
+                event.setCanceled(true);
             }
         }
     }
