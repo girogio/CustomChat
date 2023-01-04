@@ -50,10 +50,9 @@ public class OptionScreen extends Screen {
 
         });
 
-
         this.addRenderableWidget(saveButton);
 
-        this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 2 + 35, 200, 20, new TextComponent("Cancel"), (button) -> this.onClose()));
+        this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 2 + 35, 200, 20, new TextComponent(I18n.get("mod.custom_chat.gui.back")), (button) -> this.onClose()));
 
     }
 
@@ -69,10 +68,7 @@ public class OptionScreen extends Screen {
             this.brokerEditBox.tick();
         }
 
-        String disconnect = I18n.get("mod.custom_chat.gui.disconnect");
-        String connect = I18n.get("mod.custom_chat.gui.connect");
-
-        saveButton.setMessage(new TextComponent(!MqttConnection.isConnected() ? disconnect : connect));
+        saveButton.setMessage(new TextComponent(!MqttConnection.isConnected() ? I18n.get("mod.custom_chat.gui.connect") : I18n.get("mod.custom_chat.gui.disconnect")));
 
         String urlRegex = "^(ws|tcp)://[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*(:[0-9]{1,5})?$";
         if (this.brokerEditBox.getValue().matches(urlRegex)) {

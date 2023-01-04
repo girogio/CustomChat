@@ -6,6 +6,6 @@
   "mod.custom_chat.key.toggle_menu": "Attiva/disattiva Menu Chat",
   "mod.custom_chat.gui.connect": "Connetti",
   "mod.custom_chat.gui.disconnect": "Disconnetti",
-  "mod.custom_chat.gui.invalid_url": "URL non valido"
-
+  "mod.custom_chat.gui.invalid_url": "URL non valido",
+  "mod.custom_chat.gui.back": "Annulla"
 }

@@ -6,5 +6,6 @@
   "mod.custom_chat.key.toggle_menu": "Toggle Chat Menu",
   "mod.custom_chat.gui.connect": "Connect",
   "mod.custom_chat.gui.disconnect": "Disconnect",
-  "mod.custom_chat.gui.invalid_url": "Invalid URL"
+  "mod.custom_chat.gui.invalid_url": "Invalid URL",
+  "mod.custom_chat.gui.back": "Cancel"
 }
