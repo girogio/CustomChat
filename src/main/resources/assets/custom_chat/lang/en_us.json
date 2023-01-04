@@ -3,5 +3,8 @@
   "mod.custom_chat.popup.toggle.activate": "Chat enabled",
   "mod.custom_chat.popup.toggle.deactivate": "Chat disabled",
   "mod.custom_chat.key.toggle_indicator": "Toggle Chat Indicator",
-  "mod.custom_chat.key.toggle_menu": "Toggle Chat Menu"
+  "mod.custom_chat.key.toggle_menu": "Toggle Chat Menu",
+  "mod.custom_chat.gui.connect": "Connect",
+  "mod.custom_chat.gui.disconnect": "Disconnect",
+  "mod.custom_chat.gui.invalid_url": "Invalid URL"
 }
