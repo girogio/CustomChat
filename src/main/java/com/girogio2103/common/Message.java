@@ -1,6 +1,6 @@
-package com.girogio2103.objects;
+package com.girogio2103.common;
 
-import com.girogio2103.config.CustomChatClientConfig;
+import com.girogio2103.client.config.CustomChatClientConfig;
 import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 

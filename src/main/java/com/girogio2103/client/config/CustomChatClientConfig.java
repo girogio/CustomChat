@@ -1,4 +1,4 @@
-package com.girogio2103.config;
+package com.girogio2103.client.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 

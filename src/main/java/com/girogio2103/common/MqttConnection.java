@@ -1,6 +1,6 @@
-package com.girogio2103.client;
+package com.girogio2103.common;
 
-import com.girogio2103.config.CustomChatClientConfig;
+import com.girogio2103.client.config.CustomChatClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;

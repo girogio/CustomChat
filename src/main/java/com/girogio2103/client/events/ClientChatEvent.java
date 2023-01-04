@@ -1,8 +1,8 @@
-package com.girogio2103.events;
+package com.girogio2103.client.events;
 
 import com.girogio2103.CustomChat;
-import com.girogio2103.client.MqttConnection;
-import com.girogio2103.objects.Message;
+import com.girogio2103.common.Message;
+import com.girogio2103.common.MqttConnection;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "custom_chat", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-    public class ClientChatEvent {
+public class ClientChatEvent {
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)

@@ -1,8 +1,8 @@
 package com.girogio2103;
 
 import com.girogio2103.client.KeyInit;
-import com.girogio2103.client.MqttConnection;
-import com.girogio2103.config.CustomChatClientConfig;
+import com.girogio2103.client.config.CustomChatClientConfig;
+import com.girogio2103.common.MqttConnection;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
