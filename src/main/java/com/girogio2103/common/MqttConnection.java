@@ -82,8 +82,6 @@ public class MqttConnection {
                 asyncPublisher.setCallback(new MqttCallback() {
                     @Override
                     public void connectionLost(Throwable cause) {
-                        assert Minecraft.getInstance().player != null;
-                        Minecraft.getInstance().player.sendMessage(new TextComponent("Connection lost"), Minecraft.getInstance().player.getUUID());
                     }
 
                     @Override

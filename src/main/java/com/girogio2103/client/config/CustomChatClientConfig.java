@@ -10,6 +10,10 @@ public class CustomChatClientConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> PINGS;
 
+    public static final ForgeConfigSpec.ConfigValue<Boolean> NOTIFICATIONS;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_HUD_INDICATOR;
+
     static{
         BUILDER.push("general");
 
@@ -26,6 +30,20 @@ public class CustomChatClientConfig {
 
         PINGS = BUILDER.comment("Enable pings (if message contains @Player123, Player123 will get a sound notification)")
                 .define("Pings", true);
+
+        BUILDER.pop();
+
+        BUILDER.push("HUD");
+
+        SHOW_HUD_INDICATOR = BUILDER.comment("Show a small indicator in the top left corner of the screen to show if the chat is open or not")
+                .define("Show HUD Indicator", true);
+
+        BUILDER.pop();
+
+        BUILDER.push("debug");
+
+        NOTIFICATIONS = BUILDER.comment("Show notifications when subscribing or unsubscribing to a topic")
+                .define("Notifications", false);
 
         SPEC = BUILDER.build();
     }
