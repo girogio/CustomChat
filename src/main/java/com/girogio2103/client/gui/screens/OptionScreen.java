@@ -40,11 +40,8 @@ public class OptionScreen extends Screen {
             CustomChatClientConfig.MQTT_BROKER.set(brokerEditBox.getValue());
             CustomChatClientConfig.MQTT_TOPIC.set(topicEditBox.getValue());
 
-            if (MqttConnection.isConnected()) {
-                MqttConnection.disconnect();
-            } else {
-                MqttConnection.connect();
-            }
+            MqttConnection.toggleConnection();
+
         });
 
 
