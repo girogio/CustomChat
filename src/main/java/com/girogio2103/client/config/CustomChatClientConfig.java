@@ -33,7 +33,7 @@ public class CustomChatClientConfig {
 
         BUILDER.pop();
 
-        BUILDER.push("HUD");
+        BUILDER.push("hud");
 
         SHOW_HUD_INDICATOR = BUILDER.comment("Show a small indicator in the top left corner of the screen to show if the chat is open or not")
                 .define("Show HUD Indicator", true);
