@@ -4,7 +4,36 @@ A very neat way of communicating in game, without using Mojang's services!
 
 ## Features
 
-Press C to connect to your chosen MQTT server and subscribe to the configured topic! You can modify both of these in `.minecraft/config/custom_chat-client.toml`. 
+- Press C to toggle the custom chat (off by default).
+- You can subscribe to a topic on any MQTT broker.
+- You can @mention people by typing `@<username>` (CaSe-SeNsiTivE).
+- Various configurable verbosity levels.
+
+## Keybinds
+ 
+`C`: Toggle toggle subscription
+
+## Configuration
+
+The configuration file is located at `.minecraft/config/custom_chat-client.toml`.
+
+- general
+    - `MQTT Broker = ws://broker.hivemq.com:8000`
+      - the address of the MQTT broker you want to connect to.
+    - `MQTT Topic = general/chat`
+      - the topic you want to subscribe to. 
+      - change this to something unique to your server, so you don't see messages from other servers.
+      
+- chat
+   - `Pings = true`
+      - set to true if you want to hear a sound when someone @mentions you.
+- HUD
+   - `Show Connectivity Indicator = true`
+      - set to true if you want to see a small indicator in the top left corner of your screen.
+      - Red: Not connected, Yellow: Unsubscribed, Green: Subscribed.
+- debug
+   - `Notifications = false`
+      - set to true if you want to see text notifications above your hotbar whenever an action occurs.
 
 ## Keybinds
  
@@ -14,8 +43,9 @@ Press C to connect to your chosen MQTT server and subscribe to the configured to
  - Commands beginning with `/` are ignored.
  - First activation takes a bit longer as initial connection is being estabillished.
 
-
-
+---
+---
+---
 
 Source installation information for modders
 -------------------------------------------
