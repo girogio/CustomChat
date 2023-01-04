@@ -7,15 +7,51 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import org.eclipse.paho.client.mqttv3.*;
 
+import java.lang.reflect.InaccessibleObjectException;
+
 public class MqttConnection {
 
     private static final MqttConnectOptions connOpts = new MqttConnectOptions();
 
     public static MqttAsyncClient asyncPublisher = null;
 
-    public static boolean isSubscribed = false;
+    private static boolean subscribed = false;
+
 
     public MqttConnection() {
+    }
+
+    public static void toggleConnection() {
+        if (isConnected()) {
+            disconnect();
+        } else {
+            connect();
+        }
+    }
+
+    public static void sendMessage(String message, String topic) {
+        if (isConnected() && isSubscribed()) {
+            try {
+                MqttMessage mqttMessage = new MqttMessage();
+                mqttMessage.setPayload(message.getBytes());
+                mqttMessage.setQos(2);
+                mqttMessage.setRetained(false);
+                asyncPublisher.publish(topic, mqttMessage);
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public static void toggleSubscription(String topic) throws MqttException {
+        if (isConnected()) {
+            if (subscribed) {
+                unsubscribe(topic);
+            } else {
+                subscribe(topic);
+            }
+        }
     }
 
     public static boolean isConnected() {
@@ -26,7 +62,21 @@ public class MqttConnection {
         }
     }
 
-    public static void init() throws MqttException {
+    public static boolean isSubscribed() {
+        return subscribed;
+    }
+
+    public static void disconnect() {
+        if (isConnected()) {
+            try {
+                asyncPublisher.disconnect();
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void connect() {
 
         connOpts.setAutomaticReconnect(true);
         connOpts.setKeepAliveInterval(1000);
@@ -36,23 +86,29 @@ public class MqttConnection {
         assert Minecraft.getInstance().player != null;
         String uuid = Minecraft.getInstance().player.getStringUUID();
 
-        asyncPublisher = new MqttAsyncClient(CustomChatClientConfig.MQTT_BROKER.get(), uuid);
-        asyncPublisher.connect(connOpts, null, new IMqttActionListener() {
-            @Override
-            public void onSuccess(IMqttToken asyncActionToken) {
-                System.out.println("Connected to MQTT broker");
-                try {
-                    subscribe(CustomChatClientConfig.MQTT_TOPIC.get());
-                } catch (MqttException ignored) {
+        try {
+            asyncPublisher = new MqttAsyncClient(CustomChatClientConfig.MQTT_BROKER.get(), uuid);
+            asyncPublisher.connect(connOpts, null, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
 
+                    try {
+                        subscribe(CustomChatClientConfig.MQTT_TOPIC.get());
+                    } catch (MqttException ignored) {
+
+                    }
+                    assert Minecraft.getInstance().player != null;
+                    Minecraft.getInstance().player.playNotifySound(SoundEvents.UI_TOAST_IN, SoundSource.MASTER, 0.5F, 1F);
                 }
-            }
 
-            @Override
-            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                System.out.println("Failed to connect to MQTT broker");
-            }
-        });
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    System.out.println("Failed to connect to MQTT broker");
+                }
+            });
+        } catch (MqttException | InaccessibleObjectException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void subscribe(String topic) throws MqttException {
@@ -66,7 +122,7 @@ public class MqttConnection {
                                 Minecraft.getInstance().player.displayClientMessage(new TextComponent("Subscribed to " + topic), true);
                             }
                         }
-                        isSubscribed = true;
+                        subscribed = true;
                     }
 
                     @Override
@@ -95,7 +151,7 @@ public class MqttConnection {
                                 Minecraft.getInstance().player.playNotifySound(SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.AMBIENT, 0.1F, 1.0F);
                             }
                         }
-                        Minecraft.getInstance().player.sendMessage(new TextComponent(message.toString()), Minecraft.getInstance().player.getUUID());
+                        Minecraft.getInstance().player.sendMessage(new TextComponent(CustomChatClientConfig.PLAYER_PREFIX.get() + message.toString()), Minecraft.getInstance().player.getUUID());
                     }
 
                     @Override
@@ -105,7 +161,7 @@ public class MqttConnection {
                 });
             }
         } else {
-            init();
+            connect();
         }
 
     }
@@ -120,7 +176,7 @@ public class MqttConnection {
                             Minecraft.getInstance().player.displayClientMessage(new TextComponent("Unsubscribed from " + topic), true);
                         }
                     }
-                    isSubscribed = false;
+                    subscribed = false;
                 }
 
                 @Override
@@ -134,9 +190,6 @@ public class MqttConnection {
 
             }).waitForCompletion();
 
-        } else {
-            assert Minecraft.getInstance().player != null;
-            Minecraft.getInstance().player.displayClientMessage(new TextComponent("Failed to unsubscribe from " + topic), true);
         }
     }
 }
