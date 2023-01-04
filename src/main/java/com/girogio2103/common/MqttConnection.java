@@ -13,8 +13,17 @@ public class MqttConnection {
 
     public static MqttAsyncClient asyncPublisher = null;
 
+    public static boolean isSubscribed = false;
 
     public MqttConnection() {
+    }
+
+    public static boolean isConnected() {
+        if (asyncPublisher != null) {
+            return asyncPublisher.isConnected();
+        } else {
+            return false;
+        }
     }
 
     public static void init() throws MqttException {
@@ -52,15 +61,20 @@ public class MqttConnection {
                 asyncPublisher.subscribe(topic, 2, null, new IMqttActionListener() {
                     @Override
                     public void onSuccess(IMqttToken asyncActionToken) {
-                        if (Minecraft.getInstance().player != null) {
-                            Minecraft.getInstance().player.displayClientMessage(new TextComponent("Subscribed to " + topic), true);
+                        if (CustomChatClientConfig.NOTIFICATIONS.get()) {
+                            if (Minecraft.getInstance().player != null) {
+                                Minecraft.getInstance().player.displayClientMessage(new TextComponent("Subscribed to " + topic), true);
+                            }
                         }
+                        isSubscribed = true;
                     }
 
                     @Override
                     public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                        if (Minecraft.getInstance().player != null) {
-                            Minecraft.getInstance().player.displayClientMessage(new TextComponent("Failed to subscribe to " + topic), true);
+                        if (CustomChatClientConfig.NOTIFICATIONS.get()) {
+                            if (Minecraft.getInstance().player != null) {
+                                Minecraft.getInstance().player.displayClientMessage(new TextComponent("Failed to subscribe to " + topic), true);
+                            }
                         }
                     }
                 }).waitForCompletion();
@@ -103,16 +117,23 @@ public class MqttConnection {
             asyncPublisher.unsubscribe(topic, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    if (Minecraft.getInstance().player != null) {
-                        Minecraft.getInstance().player.displayClientMessage(new TextComponent("Unsubscribed from " + topic), true);
+                    if (CustomChatClientConfig.NOTIFICATIONS.get()) {
+                        if (Minecraft.getInstance().player != null) {
+                            Minecraft.getInstance().player.displayClientMessage(new TextComponent("Unsubscribed from " + topic), true);
+                        }
                     }
+                    isSubscribed = false;
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    assert Minecraft.getInstance().player != null;
-                    Minecraft.getInstance().player.displayClientMessage(new TextComponent("Failed to unsubscribe from " + topic), true);
+                    if (CustomChatClientConfig.NOTIFICATIONS.get()) {
+                        if (Minecraft.getInstance().player != null) {
+                            Minecraft.getInstance().player.displayClientMessage(new TextComponent("Failed to unsubscribe from " + topic), true);
+                        }
+                    }
                 }
+
             }).waitForCompletion();
 
         } else {
