@@ -7,11 +7,13 @@ A very neat way of communicating in game, without using Mojang's services!
 - You can @mention people by typing `@<username>` (CaSe-SeNsiTivE).
 - Hide/show status indicator for sneak 100.
 - Enable/disable chat history for (bad) good OpSec.
+- Change topic/mqtt broker in-game.
 - Various configurable verbosity levels.
 
 
 ## Keybinds
- 
+
+- `M`: Open menu
 - `C`: Toggle chat bypass
 - `V`: Toggle connection status indicator
 
