@@ -4,12 +4,11 @@ A very neat way of communicating in game, without using Mojang's services!
 
 ## Features
 
-- Press C to toggle the custom chat (off by default).
-- You can subscribe to a topic on any MQTT broker.
 - You can @mention people by typing `@<username>` (CaSe-SeNsiTivE).
-- Various configurable verbosity levels.
 - Hide/show status indicator for sneak 100.
-- Enable/disable chat history for fat finger persons.
+- Enable/disable chat history for (bad) good OpSec.
+- Various configurable verbosity levels.
+
 
 ## Keybinds
  
