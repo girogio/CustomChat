@@ -25,7 +25,7 @@ public class ClientChatEvent {
 
             if (!msg.startsWith("/")) {
                 if(CustomChatClientConfig.ADD_MESSAGE_TO_HISTORY.get())
-                    Minecraft.getInstance().gui.getChat().addRecentChat(event.getMessage());
+                    Minecraft.getInstance().gui.getChat().addRecentChat(msg);
                 message.send(MqttConnection.asyncPublisher);
                 event.setCanceled(true);
             }
