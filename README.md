@@ -4,14 +4,16 @@ A very neat way of communicating in game, without using Mojang's services!
 
 ## Features
 
-- Press C to toggle the custom chat (off by default).
-- You can subscribe to a topic on any MQTT broker.
 - You can @mention people by typing `@<username>` (CaSe-SeNsiTivE).
+- Hide/show status indicator for sneak 100.
+- Enable/disable chat history for (bad) good OpSec.
 - Various configurable verbosity levels.
+
 
 ## Keybinds
  
-`C`: Toggle toggle subscription
+- `C`: Toggle chat bypass
+- `V`: Toggle connection status indicator
 
 ## Configuration
 
@@ -27,6 +29,8 @@ The configuration file is located at `.minecraft/config/custom_chat-client.toml`
 - chat
    - `Pings = true`
       - set to true if you want to hear a sound when someone @mentions you.
+   - `Add message to history = true`
+      - self explanatory.
 - HUD
    - `Show Connectivity Indicator = true`
       - set to true if you want to see a small indicator in the top left corner of your screen.
@@ -34,10 +38,6 @@ The configuration file is located at `.minecraft/config/custom_chat-client.toml`
 - debug
    - `Notifications = false`
       - set to true if you want to see text notifications above your hotbar whenever an action occurs.
-
-## Keybinds
- 
-`C`: Toggle toggle subscription
 
 ## Notes
  - Commands beginning with `/` are ignored.
